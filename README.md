@@ -1,6 +1,6 @@
 # aisd
 ## Algorithms and data structures code snippets
-___
+
 - Сортировки
   - Сортировка слиянием снизу вверх
   - LSD, MSD сортировки
