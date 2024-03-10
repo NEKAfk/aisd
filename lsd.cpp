@@ -4,7 +4,7 @@
 
 size_t n, k;
 
-int32_t getDigit(std::vector<int32_t>& item, size_t d) {
+int32_t getDigit(std::vector<int32_t>& item, std::size_t d) {
   return item[d];
 }
 
@@ -16,13 +16,13 @@ void lsd(std::vector<std::vector<int32_t>*>& vec) {
       bucket[getDigit(*item, i)]++;
     }
     uint32_t count = 0;
-    for (size_t j = 0; j < k; j++) {
+    for (std::size_t j = 0; j < k; j++) {
       uint32_t tmp = bucket[j];
       bucket[j] = count;
       count += tmp;
     }
     for (auto item : vec) {
-      size_t d = getDigit(*item, i);
+      std::size_t d = getDigit(*item, i);
       cop[d] = item;
       bucket[d]++;
     }

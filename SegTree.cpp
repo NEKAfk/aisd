@@ -1,4 +1,3 @@
-#include <cstddef>
 #include <cstdint>
 #include <vector>
 
@@ -28,15 +27,15 @@ private:
   };
 
   struct vertex {
-    size_t l{}, r{};
+    std::size_t l{}, r{};
     int64_t result = 0;
     op mods{0, 0};
 
-    size_t len() const {
+    std::size_t len() const {
       return r - l;
     }
 
-    int64_t true_sum() {
+    int64_t true_sum() const {
       int64_t orig = mods.type == op::SET ? 0LL : result;
       int64_t mod = mods.type ? mods.value * static_cast<int64_t>(len()) : 0LL;
       return orig + mod;
@@ -45,29 +44,29 @@ private:
 
   std::vector<vertex> tree;
 
-  void recalc(size_t idx) {
+  void recalc(std::size_t idx) {
     tree[idx].result = tree[2 * idx + 1].true_sum() + tree[2 * idx + 2].true_sum();
   }
 
-  void build(size_t idx, size_t l, size_t r) {
+  void build(std::size_t idx, std::size_t l, std::size_t r) {
     tree[idx].l = l;
     tree[idx].r = r;
     if (tree[idx].len() == 1) {
       return;
     }
-    size_t m = l + (r - l) / 2;
+    std::size_t m = l + (r - l) / 2;
     build(2 * idx + 1, l, m);
     build(2 * idx + 2, m, r);
   }
 
-  void push(size_t idx) {
+  void push(std::size_t idx) {
     tree[2 * idx + 1].mods += tree[idx].mods;
     tree[2 * idx + 2].mods += tree[idx].mods;
     recalc(idx);
     tree[idx].mods.reset();
   }
 
-  int64_t sum(size_t idx, size_t l, size_t r) {
+  int64_t sum(std::size_t idx, std::size_t l, std::size_t r) {
     if (tree[idx].r <= l || r <= tree[idx].l) {
       return 0;
     }
@@ -78,7 +77,8 @@ private:
     return sum(2 * idx + 1, l, r) + sum(2 * idx + 2, l, r);
   }
 
-  void modify(size_t idx, size_t l, size_t r, uint32_t op_type, int64_t value) {
+  void modify(std::size_t idx, std::size_t l, std::size_t r,
+              uint32_t op_type, int64_t value) {
     if (tree[idx].r <= l || r <= tree[idx].l) {
       return;
     }
@@ -93,19 +93,19 @@ private:
   }
 
 public:
-  explicit segment_tree(size_t n) : tree(4 * n) {
+  explicit segment_tree(std::size_t n) : tree(4 * n) {
     build(0, 0, n);
   }
 
-  int64_t sum(size_t l, size_t r) {
+  int64_t sum(std::size_t l, std::size_t r) {
     return sum(0, l, r);
   }
 
-  void set_value(size_t l, size_t r, int64_t value) {
+  void set_value(std::size_t l, std::size_t r, int64_t value) {
     modify(0, l, r, op::SET, value);
   }
 
-  void add(size_t l, size_t r, int64_t value) {
+  void add(std::size_t l, std::size_t r, int64_t value) {
     modify(0, l, r, op::ADD, value);
   }
 };

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+
 //снизу вверх
 void merge_sort(std::vector<int32_t>& vec) {
   std::vector<int32_t> cop(vec.size());

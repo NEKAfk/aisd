@@ -6,11 +6,11 @@ private:
   std::vector<T> array;
   P predicate;
 
-  void sift_down(int idx) {
+  void sift_down(std::size_t idx) {
     while (true) {
-      int l = 2 * idx + 1;
-      int r = 2 * idx + 2;
-      int s = idx;
+      std::size_t l = 2 * idx + 1;
+      std::size_t r = 2 * idx + 2;
+      std::size_t s = idx;
       if (l < array.size() && predicate(array[l], array[s])) {
         s = l;
       }
@@ -25,7 +25,7 @@ private:
     }
   }
 
-  void sift_up(int idx) {
+  void sift_up(std::size_t idx) {
     while (idx != 0) {
       if (predicate(array[idx], array[(idx - 1) / 2])) {
         std::swap(array[(idx - 1) / 2], array[idx]);
@@ -37,7 +37,7 @@ private:
   }
 
   void build() {
-    for (int i = array.size() - 1; i >= 0; i--) {
+    for (std::ptrdiff_t i = array.size() - 1; i >= 0; i--) {
       sift_down(i);
     }
   }
