@@ -1,3 +1,6 @@
+#ifndef AISD_HEAP_H
+#define AISD_HEAP_H
+
 #include<vector>
 
 template<typename T, typename P>
@@ -43,9 +46,7 @@ private:
   }
 
 public:
-  explicit heap(P pred) : predicate(pred) {
-    array = new std::vector<T>();
-  }
+  explicit heap(P pred) : array(new std::vector<T>()), predicate(pred) { }
 
   explicit heap(std::vector<T> vec, P pred) : array(std::move(vec)), predicate(pred) {
     build();
@@ -72,3 +73,4 @@ public:
     return array.empty();
   }
 };
+#endif // AISD_HEAP_H

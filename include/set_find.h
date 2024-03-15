@@ -1,3 +1,5 @@
+#ifndef AISD_SET_FIND_H
+#define AISD_SET_FIND_H
 #include<unordered_map>
 
 template<typename T>
@@ -30,3 +32,4 @@ public:
     }
   }
 };
+#endif // AISD_SET_FIND_H

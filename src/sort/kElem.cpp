@@ -1,7 +1,7 @@
 #include <cstdint>
 #include <vector>
 
-std::pair<std::size_t, std::size_t> partition(std::vector<int32_t>& nums,
+static std::pair<std::size_t, std::size_t> partition(std::vector<int32_t>& nums,
                                               std::size_t l, std::size_t r,
                                               int32_t pivot) {
   std::size_t i = l, j = l, h = r - 1;

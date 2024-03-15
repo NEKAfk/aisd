@@ -1,7 +1,9 @@
-#include<vector>
 #include<algorithm>
+#include<vector>
 
-std::pair<std::size_t, std::size_t> part(std::vector<int32_t>& nums,
+static const std::size_t medLen = 5;
+
+static std::pair<std::size_t, std::size_t> part(std::vector<int32_t>& nums,
                                  std::size_t l, std::size_t r,
                                  int32_t pivot) {
   std::size_t i = l, j = l, h = r - 1;
@@ -21,15 +23,15 @@ std::pair<std::size_t, std::size_t> part(std::vector<int32_t>& nums,
 }
 
 int32_t bfprt(std::vector<int32_t>& vec, std::size_t l, std::size_t r, std::size_t k) {
-  if (r-l <= 5) {
+  if (r-l <= medLen) {
     sort(vec.begin() + static_cast<std::ptrdiff_t>(l),
          vec.begin() + static_cast<std::ptrdiff_t>(r));
     return vec[l+k];
   }
   std::size_t cnt = 0;
-  for (size_t i = l; i < r; i+=5) {
+  for (size_t i = l; i < r; i+=medLen) {
     sort(vec.begin() + static_cast<std::ptrdiff_t>(i),
-         vec.begin() + static_cast<std::ptrdiff_t>(std::min(i + 5, r)));
+         vec.begin() + static_cast<std::ptrdiff_t>(std::min(i + medLen, r)));
     std::swap(vec[cnt], vec[i + 2 < r ? i + 2 : i]);
     cnt++;
   }

@@ -1,9 +1,9 @@
 #include<vector>
 
 template<typename T, typename P>
-int bin_search(std::vector<T>& vec, int l, int r, P pred) {
+std::ptrdiff_t bin_search(std::vector<T>& vec, std::ptrdiff_t l, std::ptrdiff_t r, P pred) {
   while (r - l > 1) {
-    int m = l + (r - l) / 2;
+    std::ptrdiff_t m = l + (r - l) / 2;
     if (pred(vec[m])) {
       l = m;
     } else {

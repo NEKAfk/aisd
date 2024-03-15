@@ -1,9 +1,9 @@
 #include <iostream>
 #include <vector>
 
-size_t n = 3, k = 10;
+static const size_t n = 3, k = 10;
 
-int32_t getDigit(std::vector<int32_t>& item, std::size_t d) {
+static int32_t getDigit(std::vector<int32_t>& item, std::size_t d) {
   return item[d];
 }
 

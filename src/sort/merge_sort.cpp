@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 
-//снизу вверх
+// снизу вверх
 void merge_sort(std::vector<int32_t>& vec) {
   std::vector<int32_t> cop(vec.size());
   for (size_t i = 1; i < (vec.size() + 1) / 2; i<<=1) {

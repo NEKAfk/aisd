@@ -2,9 +2,9 @@
 #include <cstdint>
 #include <vector>
 
-size_t n, k;
+static const size_t n = 10, k = 2;
 
-int32_t getDigit(std::vector<int32_t>& item, std::size_t d) {
+static int32_t getDigit(std::vector<int32_t>& item, std::size_t d) {
   return item[d];
 }
 
