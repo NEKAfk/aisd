@@ -92,7 +92,7 @@ void seg_tree::tree2png(const char* png_file_name, std::size_t idx) {
   std::fprintf(dot_file, "nodel[label = \"<root> root: %ld\"; fillcolor = \"lightblue\"];", idx);
 
   std::fprintf(dot_file,
-               "node%ld[label = \"{<data> data: x = %ld | {<left> l: %zu| <right> r: %zu}}\"; fillcolor = \"orchid\"]};\n",
+               "node%ld[label = \"{<data> data: key = %ld | {<left> l: %zu| <right> r: %zu}}\"; fillcolor = \"orchid\"]};\n",
                idx, tree[idx].modified_result(), tree[idx].l, tree[idx].r);
 
   if (tree[idx].len() > 1) {
@@ -113,7 +113,7 @@ void seg_tree::tree2png(const char* png_file_name, std::size_t idx) {
 
 void seg_tree::subtree2png(std::size_t parent, std::size_t child, const char* direction, FILE *dot_file)
 {
-  fprintf(dot_file, "node%ld[label = \"{<data> data: x = %ld | {<left> l: %zu| <right> r: %zu}}\"];\n",
+  fprintf(dot_file, "node%ld[label = \"{<data> data: key = %ld | {<left> l: %zu| <right> r: %zu}}\"];\n",
           child, tree[child].modified_result(), tree[child].l, tree[child].r);
 
   fprintf(dot_file, "node%ld:<%s>:s -> node%ld:<data>:n;\n", parent, direction, child);

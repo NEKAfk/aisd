@@ -1,31 +1,31 @@
-#include "../include/dec_tree.h"
 #include "../include/pers_seg_tree.h"
+#include "../include/treap_key.h"
 
 #include <iostream>
 #include <vector>
 
-int main() {
-  std::size_t n; std::cin >> n;
-  std::vector<int64_t> vec(n);
-  for (std::size_t i = 0; i < n; i++) {
-    vec[i] = i + 1;
-  }
-  dec_tree dt(vec);
+struct Node {
 
-  std::size_t cnt = 0;
-  while (true) {
-    std::cout << "Enter: ";
-    int x = 0; std::cin >> x;
-    if (x == -1) {
-      break;
-    }
-    int64_t val = 0; std::cin >> val;
-    if (x == 0) {
-      dt.insert(val);
-    } else {
-      dt.remove(val);
-    }
-    dt.draw((std::to_string(cnt) + ".png").c_str());
-    cnt++;
+  ~Node() {
+    std::cout << "D\n";
   }
+};
+
+treap_key f() {
+  std::vector<int64_t> tmp = {1, 2, 3};
+  return treap_key(tmp);
+}
+
+int main() {
+  std::vector<int64_t> init = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
+  treap_key Treap(init);
+  treap_key l, r;
+  Treap.reverse(4, 10);
+  treap_key::split(Treap, 4, l, r);
+  treap_key newTreap;
+  treap_key::merge(r, l, newTreap);
+  newTreap.add(10, 12, -100);
+  newTreap.set(0, 2, 0);
+  treap_key::draw(newTreap, "0.png");
+  return 0;
 }

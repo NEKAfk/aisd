@@ -3,7 +3,7 @@
 
 static const std::size_t medLen = 5;
 
-static std::pair<std::size_t, std::size_t> part(std::vector<int32_t>& nums,
+static std::pair<std::size_t, std::size_t> partition(std::vector<int32_t>& nums,
                                  std::size_t l, std::size_t r,
                                  int32_t pivot) {
   std::size_t i = l, j = l, h = r - 1;
@@ -36,7 +36,7 @@ int32_t bfprt(std::vector<int32_t>& vec, std::size_t l, std::size_t r, std::size
     cnt++;
   }
   int32_t pivot = bfprt(vec, 0, cnt, cnt/2);
-  auto [i, j] = part(vec, l, r, pivot);
+  auto [i, j] = partition(vec, l, r, pivot);
   if (l+k >= i) {
     if (l+k < j) {
       return vec[l + k];

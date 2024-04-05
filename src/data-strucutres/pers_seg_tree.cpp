@@ -100,7 +100,7 @@ void pers_seg_tree::tree2png(const char* png_file_name, Node* root) {
   std::fprintf(dot_file, "nodel[label = \"<root> root: %p\"; fillcolor = \"lightblue\"];", root);
 
   std::fprintf(dot_file,
-               "node%p[label = \"{<data> data: x = %ld | {<left> l: %p| <right> r: %p}}\"; fillcolor = \"orchid\"]};\n",
+               "node%p[label = \"{<data> data: key = %ld | {<left> l: %p| <right> r: %p}}\"; fillcolor = \"orchid\"]};\n",
                root, root->result, root->left, root->right);
 
   subtree2png(root, root->left, "left", dot_file);
@@ -120,7 +120,7 @@ void pers_seg_tree::subtree2png(Node* parent, Node* child, const char* direction
 {
   if(child == nullptr) return;
 
-  fprintf(dot_file, "node%p[label = \"{<data> data: x = %ld | {<left> l: %p| <right> r: %p}}\"];\n",
+  fprintf(dot_file, "node%p[label = \"{<data> data: key = %ld | {<left> l: %p| <right> r: %p}}\"];\n",
           child, child->result, child->left, child->right);
 
   fprintf(dot_file, "node%p:<%s>:s -> node%p:<data>:n;\n", parent, direction, child);
