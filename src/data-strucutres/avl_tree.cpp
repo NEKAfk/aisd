@@ -81,7 +81,9 @@ avl_tree::Node* avl_tree::insert_impl(Node* root, int64_t x) {
 
 std::pair<avl_tree::Node*, avl_tree::Node*> avl_tree::get_min(Node* root) {
   if (!root->left) {
-    return {nullptr, root};
+    Node* right = root->right;
+    root->right = nullptr;
+    return {right, root};
   }
   auto [left, new_root] = get_min(root->left);
   root->left = left;
