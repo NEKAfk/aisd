@@ -1,20 +1,7 @@
-#include "../include/pers_seg_tree.h"
 #include "../include/treap_key.h"
 
 #include <iostream>
 #include <vector>
-
-struct Node {
-
-  ~Node() {
-    std::cout << "D\n";
-  }
-};
-
-treap_key f() {
-  std::vector<int64_t> tmp = {1, 2, 3};
-  return treap_key(tmp);
-}
 
 int main() {
   std::vector<int64_t> init = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};

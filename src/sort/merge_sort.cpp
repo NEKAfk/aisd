@@ -2,7 +2,7 @@
 #include <vector>
 
 // снизу вверх
-void merge_sort(std::vector<int32_t>& vec) {
+void merge_sort_iterative(std::vector<int32_t>& vec) {
   std::vector<int32_t> cop(vec.size());
   for (size_t i = 1; i < (vec.size() + 1) / 2; i<<=1) {
     size_t lf = 0, rf = i, ls = i, rs = std::min(2 * i, vec.size());
