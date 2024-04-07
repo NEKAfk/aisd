@@ -1,31 +1,53 @@
-#include <cstddef>
+#include <algorithm>
+#include <cmath>
 #include <cstdint>
 #include <vector>
 
-static const size_t n = 10, k = 2;
+static const uint64_t base = 10;
 
-static int32_t get_digit(std::vector<int32_t>& item, std::size_t d) {
-  return item[d];
+static uint64_t bin_pow(uint64_t a, std::size_t p) {
+  uint64_t res = 1;
+  while (p > 0) {
+    if (p & 1UL) {
+      res *= a;
+      p--;
+    }
+    a *= a;
+    p /= 2;
+  }
+  return res;
 }
 
-void lsd(std::vector<std::vector<int32_t>*>& vec) {
-  for (int i = 0; i < n; i++) {
-    std::vector<uint32_t> bucket(k, 0);
-    std::vector<std::vector<int32_t>*> cop(vec.size());
-    for (auto item : vec) {
-      bucket[get_digit(*item, i)]++;
+static std::size_t get_len(uint64_t n) {
+  if (n == 0) {
+    return 1;
+  }
+  std::size_t res = 0;
+  while (n) {
+    res++;
+    n/=base;
+  }
+  return res;
+}
+
+static uint64_t get_digit(uint64_t number, std::size_t pos) {
+  return (number / bin_pow(base, pos)) % base;
+}
+
+void lsd(std::vector<uint64_t>& nums) {
+  std::size_t m_len = get_len(*std::max_element(nums.begin(), nums.end()));
+  std::vector<uint64_t> copy(nums.size());
+  for (std::size_t i = 0; i < m_len; i++) {
+    std::vector<std::size_t> cnt(base + 1, 0);
+    for (auto n : nums) {
+      cnt[get_digit(n, i) + 1]++;
     }
-    uint32_t count = 0;
-    for (std::size_t j = 0; j < k; j++) {
-      uint32_t tmp = bucket[j];
-      bucket[j] = count;
-      count += tmp;
+    for (std::size_t k = 1; k <= base; k++) {
+      cnt[k] += cnt[k - 1];
     }
-    for (auto item : vec) {
-      std::size_t d = get_digit(*item, i);
-      cop[d] = item;
-      bucket[d]++;
+    for (auto n : nums) {
+      copy[cnt[get_digit(n, i)]++] = n;
     }
-    std::copy(cop.begin(), cop.end(), vec.begin());
+    std::swap(nums, copy);
   }
 }
