@@ -11,7 +11,7 @@ std::pair<treap_key::Node*, treap_key::Node*> treap_key::Node::split(Node* p, in
     return {nullptr, nullptr};
   }
   Node::push(p);
-  if (Node::get_size(p->left) <= idx) {
+  if (Node::get_size(p->left) < idx) {
     auto [left, right] = split(p->right, idx - Node::get_size(p->left) - 1);
     p->right = left;
     if (left) left->parent = p;
@@ -123,7 +123,6 @@ void treap_key::Node::clear(Node* root) {
 //TREAP
 
 treap_key::treap_key(std::vector<int64_t>& vec) {
-  std::sort(vec.begin(), vec.end());
   std::queue<Node*> queue;
   for (auto& x : vec) {
     queue.push(new Node(x));
@@ -172,8 +171,8 @@ void treap_key::merge(treap_key& fst, treap_key& snd, treap_key& dst) {
 }
 
 void treap_key::modify(treap_key& tree, int64_t l, int64_t r, op oper, bool reverse) {
-  auto [p, q] = Node::split(tree.root, l - 1);
-  auto [ql, qr] = Node::split(q, r - l - 1);
+  auto [p, q] = Node::split(tree.root, l);
+  auto [ql, qr] = Node::split(q, r - l);
   Node::push(ql);
   if (ql && reverse) {
     ql->reverse = true;
@@ -195,8 +194,8 @@ void treap_key::reverse(int64_t l, int64_t r) {
 }
 
 int64_t treap_key::sum(int64_t l, int64_t r) {
-  auto [p, q] = Node::split(root, l - 1);
-  auto [ql, qr] = Node::split(q, r - l - 1);
+  auto [p, q] = Node::split(root, l);
+  auto [ql, qr] = Node::split(q, r - l);
   Node::push(ql);
   int64_t result = ql->result;
   root = (Node::merge(Node::merge(p, ql), qr));

@@ -8,7 +8,7 @@ class avl_tree {
 private:
   struct Node {
     Node(int64_t key);
-    int64_t key, size{1}, height{1};
+    int64_t key, height{1};
     Node* left{};
     Node* right{};
 
@@ -24,8 +24,6 @@ private:
 
     static int64_t get_height(Node* node);
 
-    static int64_t get_size(Node* node);
-
     ~Node();
   };
 
@@ -37,7 +35,15 @@ private:
 
   static Node* remove_impl(Node* root, int64_t x);
 
+  static Node* find(Node* root, int64_t x);
+
 public:
+  bool contains(int64_t x);
+
+  int64_t next(int64_t x);
+
+  int64_t prev(int64_t x);
+
   void insert(int64_t x);
 
   void remove(int64_t x);
